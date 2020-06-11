@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const products = require("./api/routes/products");
 const orders = require("./api/routes/orders");
 const search = require("./api/routes/search");
+const wishlist = require("./api/routes/wishlist");
+const admin = require("./api/routes/admin");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,6 +16,8 @@ app.use(cors());
 app.use("/products", products);
 app.use("/orders", orders);
 app.use("/search", search);
+app.use("/wishlist", wishlist);
+app.use("/admin", admin);
 
 //Error handling
 app.use((req, res, next) => {
