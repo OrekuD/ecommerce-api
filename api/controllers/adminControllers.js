@@ -26,12 +26,18 @@ exports.addProducts = (req, res, next) => {
 };
 
 exports.getAllProducts = (req, res, next) => {
-  const product = {
-    name: req.body.name,
-    price: req.body.price,
-  };
-
-  res.status(200).json({ status: 200, product });
+  Product.find()
+    .exec()
+    .then((docs) => {
+      res.status(200).json({
+        products: docs,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
 };
 
 exports.getProductById = (req, res, next) => {
@@ -58,9 +64,18 @@ exports.modifyProductById = (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  res.status(200).json({
-    message: `Admin Products DELETE request for ${id}`,
-  });
+  Product.remove({ _id: id })
+    .exec()
+    .then((result) => {
+      res.status(200).json({
+        message: "Deletion succesfull",
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
 };
 
 exports.getAllOrders = (req, res, next) => {
