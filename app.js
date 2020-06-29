@@ -9,9 +9,11 @@ const search = require("./api/routes/search");
 const wishlist = require("./api/routes/wishlist");
 const admin = require("./api/routes/admin");
 
+const password = "glourious15";
+
 mongoose.connect(
   "mongodb://OrekuD:" +
-    process.env.MONGO_PWD +
+    password +
     "@node-ecommerce-api-shard-00-00-9jaqz.mongodb.net:27017,node-ecommerce-api-shard-00-01-9jaqz.mongodb.net:27017,node-ecommerce-api-shard-00-02-9jaqz.mongodb.net:27017/<dbname>?ssl=true&replicaSet=node-ecommerce-api-shard-0&authSource=admin&retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
