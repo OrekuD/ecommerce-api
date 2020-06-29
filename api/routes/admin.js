@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AdminControllers = require("../controllers/adminControllers");
+const GlobalControllers = require("../controllers/globalControllers");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -31,7 +32,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 router.get("/", AdminControllers.defaultRoute);
 
-router.get("/products", AdminControllers.getAllProducts);
+router.get("/products", GlobalControllers.getAllProducts);
 
 router.post(
   "/products",
@@ -39,11 +40,13 @@ router.post(
   AdminControllers.addProducts
 );
 
-router.get("/products/:id", AdminControllers.getProductById);
+router.get("/products/:id", GlobalControllers.getProductById);
 
 router.patch("/products/:id", AdminControllers.modifyProductById);
 
 router.delete("/products:id", AdminControllers.deleteProduct);
+
+router.delete("/products/all", AdminControllers.deleteAllProducts);
 
 router.get("/orders", AdminControllers.getAllOrders);
 

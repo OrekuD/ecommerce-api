@@ -8,11 +8,12 @@ exports.defaultRoute = (req, res, next) => {
 };
 
 exports.addProducts = (req, res, next) => {
-  console.log(req.file);
+  // console.log(req.file);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     price: req.body.price,
+    productImage: req.file.path,
   });
 
   product
@@ -24,36 +25,6 @@ exports.addProducts = (req, res, next) => {
     message: `Admin Products Post request succesfull`,
     product: product,
   });
-};
-
-exports.getAllProducts = (req, res, next) => {
-  Product.find()
-    .exec()
-    .then((docs) => {
-      res.status(200).json({
-        products: docs,
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error,
-      });
-    });
-};
-
-exports.getProductById = (req, res, next) => {
-  const id = req.params.id;
-  Product.findById(id)
-    .exec()
-    .then((doc) => {
-      res.status(200).json({
-        product: doc,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({});
-    });
 };
 
 exports.modifyProductById = (req, res, next) => {
@@ -70,6 +41,22 @@ exports.deleteProduct = (req, res, next) => {
     .then((result) => {
       res.status(200).json({
         message: "Deletion succesfull",
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
+};
+
+exports.deleteAllProducts = (req, res, next) => {
+  const id = req.params.id;
+  Product.remove({})
+    .exec()
+    .then((result) => {
+      res.status(200).json({
+        message: "All products deleted succesfully",
       });
     })
     .catch((error) => {
