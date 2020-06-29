@@ -4,6 +4,7 @@ const Customer = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   firstName: String,
   lastName: String,
+  password: String,
   email: String,
   wishlist: Array,
 });

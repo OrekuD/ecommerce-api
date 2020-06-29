@@ -3,11 +3,12 @@ const Product = require("../models/product");
 
 exports.defaultRoute = (req, res, next) => {
   res.status(200).json({
-    message: "Post request through",
+    message: "Default get route",
   });
 };
 
 exports.addProducts = (req, res, next) => {
+  console.log(req.file);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
