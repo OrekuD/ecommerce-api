@@ -8,6 +8,7 @@ const orders = require("./api/routes/orders");
 const search = require("./api/routes/search");
 const wishlist = require("./api/routes/wishlist");
 const admin = require("./api/routes/admin");
+const customers = require("./api/routes/customers");
 
 mongoose.connect(
   "mongodb://OrekuD:" +
@@ -31,6 +32,7 @@ app.use("/orders", orders);
 app.use("/search", search);
 app.use("/wishlist", wishlist);
 app.use("/admin", admin);
+app.use("/customer", customers);
 
 //Error handling
 app.use((req, res, next) => {
