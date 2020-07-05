@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
+const Orders = require("../models/orders");
 
 exports.defaultRoute = (req, res, next) => {
   res.status(200).json({
@@ -51,7 +52,6 @@ exports.deleteProduct = (req, res, next) => {
 };
 
 exports.deleteAllProducts = (req, res, next) => {
-  const id = req.params.id;
   Product.remove({})
     .exec()
     .then((result) => {
@@ -67,9 +67,18 @@ exports.deleteAllProducts = (req, res, next) => {
 };
 
 exports.getAllOrders = (req, res, next) => {
-  res.status(200).json({
-    message: "Get request to admin orders",
-  });
+  Orders.find()
+    .exec()
+    .then((docs) => {
+      res.status(200).json({
+        orders: docs,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
 };
 
 exports.addNewOrder = (req, res, next) => {
